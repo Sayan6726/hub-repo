@@ -1,0 +1,46 @@
+/* Full-screen container to center the login form */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #007bff; /* Blue background color */
+}
+
+/* Styling for the login form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white; /* White background for the form */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #007bff; /* Blue color for the heading */
+}
+
+.login-form input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff; /* Blue background for the button */
+  color: white; /* White text color for the button */
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+

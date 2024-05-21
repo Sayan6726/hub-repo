@@ -1,0 +1,53 @@
+pipeline{
+    agent any
+    tools {nodejs "node18.17"}
+    stages{
+        stage('Git pull & Verify'){
+            steps{
+                git branch: 'develop', credentialsId: 'gitcred', url: 'https://github.com/Sayan6726/login-reactapp.git'
+                sh 'ls -alF'
+            }
+
+        }
+
+
+        stage('Copy to project'){
+            steps{
+
+                sh 'cp -rf . /var/www/html/react-app-demo/'
+            }
+        }
+
+        stage('php clear'){
+            steps{
+                dir('/var/www/html/react-app-demo/')
+                {
+                sh '''
+                npm i
+                npm run build
+                '''
+                }
+            }
+        }
+        stage('Static Code Analysis'){
+            steps{
+                script {
+                    def scannerHome = tool 'sq';
+                        withSonarQubeEnv("sonarqube-server") {
+                            sh "${tool("SonarQube")}/bin/sonar-scanner \
+                              -Dsonar.projectName=Mirasys-SAST \
+                              -Dsonar.projectKey=Mirasys-SAST \
+                              -Dsonar.sources=. \
+                              -Dsonar.css.node=. \
+                              -Dsonar.host.url=http://192.168.0.2:9000 \
+                              -Dsonar.token=sqa_4d942fbf7996ceb987365bf0c23fe18ec7eb0aa6"
+                        }
+                }
+           
+            }
+
+    }
+
+    }
+}
+
